@@ -21,7 +21,7 @@ def create_schema():
     db.execute("""
         CREATE VIEW IF NOT EXISTS hourly
         AS SELECT
-            SUBSTR(timestamp, 0, 14) AS hour,
+            SUBSTR(DATETIME(timestamp, 'localtime'), 0, 14) || ":00" AS hour,
             SUM(response) AS rsp_recvd,
             COUNT(id) AS sent
         FROM ping
