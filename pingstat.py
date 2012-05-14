@@ -26,6 +26,7 @@ def create_schema():
             COUNT(id) AS sent
         FROM ping
         GROUP BY hour
+        ORDER BY hour
         """)
     db.execute("""
         CREATE VIEW IF NOT EXISTS plr_percent
