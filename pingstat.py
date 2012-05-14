@@ -5,8 +5,8 @@ INTERVAL_SECONDS = 1
 
 # Create the database schema including table and views.
 # Return the database connection.
-def create_schema():
-    db = sqlite3.connect(DB)
+def create_schema(host):
+    db = sqlite3.connect(host)
     db.isolation_level = None    # Enable auto-commit
     db.execute("DROP TABLE IF EXISTS ping")
     db.execute("""
@@ -75,7 +75,7 @@ def one_ping(db, host):
 
 # Ping specified host until a key is pressed on the console.
 def ping_loop(host):
-    db = create_schema()
+    db = create_schema(host)
     while not msvcrt.kbhit():
         one_ping(db, host)
     db.close()
